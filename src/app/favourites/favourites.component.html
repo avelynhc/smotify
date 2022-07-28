@@ -1,0 +1,29 @@
+<h1>Favourites</h1>
+<p>The following is a list of your favourite songs from various artists.<br /> Click the &nbsp;<mat-icon mat-list-icon>queue_music</mat-icon>&nbsp; icon to <strong>remove</strong> a song from your list </p>
+
+<br />
+
+<mat-list *ngFor="let favorite of favourites">
+
+    <!-- single "favourite" card -->
+    <mat-list-item >
+        <mat-icon (click)="removeFromFavourites(favorite.id)" mat-list-icon>queue_music</mat-icon>
+        <div mat-line>
+            <mat-card>
+                <mat-card-content><strong>{{favorite.name}}</strong> - {{favorite.duration_ms/60000 | number : '1.2-2'}}<br /><br />
+                    Artist(s): 
+                    <span  *ngFor="let artist of favorite.artists">
+                        <a [routerLink]="['/artist', artist.id]">{{artist.name}}</a>&nbsp;&nbsp;
+                    </span>     
+                    <br />
+
+                    Album: <a [routerLink]="['/album', favorite.album.id]">{{favorite.album.name}}</a><br />
+                    <div *ngIf="favorite.preview_url"><br /><audio controls [src]="favorite.preview_url"></audio></div>
+                </mat-card-content>
+                
+            </mat-card>
+        </div>
+    </mat-list-item>
+    <!-- -->
+
+</mat-list>
